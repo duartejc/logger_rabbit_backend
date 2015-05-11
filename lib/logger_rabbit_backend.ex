@@ -1,4 +1,4 @@
-defmodule LoggerFileBackend do
+defmodule LoggerRabbitBackend do
   use GenEvent
 
   @type path      :: String.t
