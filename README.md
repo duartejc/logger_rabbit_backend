@@ -5,13 +5,13 @@ A simple `Logger` backend which publishes logs to RabbitMQ.
 
 ## Configuration
 
-`LoggerRabbitBackend` is a custom backend for the elixir `:logger` application. As
+`LoggerRabbitBackend` is a custom backend for the Elixir `:logger` application. As
 such, it relies on the `:logger` application to start the relevant processes.
 However, unlike the default `:console` backend, we may want to configure
-multiple log files, each with different log levels formats, etc. Also, we want
+multiple log queues, each with different log levels, formats, etc. Also, we want
 `:logger` to be responsible for starting and stopping each of our logging
 processes for us. Because of these considerations, there must be one `:logger`
-backend configured for each log file we need. Each backend has a name like
+backend configured for each log queue we need. Each backend has a name like
 `{LoggerRabbitBackend, id}`, where `id` is any elixir term (usually an atom).
 
 Our config.exs would have an entry similar to this:
@@ -28,7 +28,7 @@ path and log levels for the backend, though. To do that, we add another config
 stanza. Together with the stanzaabove, we'll have something like this:
 
 ```elixir
-# tell logger to load 2 LoggerFileBackend processes
+# tell logger to load 2 LoggerRabbitBackend processes
 config :logger,
   backends: [{LoggerRabbitBackend, :error_log}]
 
